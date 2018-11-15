@@ -87,6 +87,35 @@ def depthFirstSearch(problem):
     print "Start's successors:", problem.getSuccessors(problem.getStartState())
     """
     "*** YOUR CODE HERE ***"
+    from game import Directions
+    s = Directions.SOUTH
+    w = Directions.WEST
+    n = Directions.NORTH
+    e = Directions.EAST
+
+    theFringe = util.Stack()
+    expanded = set()
+    theFringe.push((problem.getStartState(),[]))
+
+    while not theFringe.isEmpty():
+
+        popState, popMoves = theFringe.pop()
+
+        if(popState in expanded):
+            continue
+
+        if problem.isGoalState(popState):
+            return popMoves
+
+        expanded.add(popState)
+
+        for state, direction, cost in problem.getSuccessors(popState):
+            if(state in expanded):
+                continue
+            theFringe.push((state, popMoves+[direction]))
+
+    return []
+
     util.raiseNotDefined()
 
 def breadthFirstSearch(problem):

@@ -196,7 +196,7 @@ def aStarSearch(problem, heuristic=nullHeuristic):
 
         if problem.isGoalState(currentState):
             return currentMoves
-        
+
         expanded.add(currentState)
 
         for state, direction, cost in problem.getSuccessors(currentState):

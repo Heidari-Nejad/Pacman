@@ -455,6 +455,7 @@ def foodHeuristic(state, problem):
     """
     position, foodGrid = state
     "*** YOUR CODE HERE ***"
+
     return 0
 
 class ClosestDotSearchAgent(SearchAgent):
@@ -486,6 +487,30 @@ class ClosestDotSearchAgent(SearchAgent):
         problem = AnyFoodSearchProblem(gameState)
 
         "*** YOUR CODE HERE ***"
+        problem.isGoalState(startPosition)
+        theFringe = util.Queue()
+        expanded = set()
+        theFringe.push((problem.getStartState(),[],0))
+
+        while not theFringe.isEmpty():
+
+            popState, popMoves, popCost = theFringe.pop()
+
+            if(popState in expanded):
+                continue
+
+            if problem.isGoalState(popState):
+                return popMoves
+
+            expanded.add(popState)
+
+            for state, direction, cost in problem.getSuccessors(popState):
+                if(state in expanded):
+                    continue
+                theFringe.push((state, popMoves+[direction], popCost))
+
+        return []
+
         util.raiseNotDefined()
 
 class AnyFoodSearchProblem(PositionSearchProblem):
